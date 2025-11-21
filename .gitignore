@@ -1,0 +1,75 @@
+# Compiled class files
+*.class
+
+# Eclipse project files
+.project
+.classpath
+.settings/
+bin/
+.metadata/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# NetBeans
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+
+# Build output directories
+target/
+build/
+out/
+dist/
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.*.sw?
+
+# Package files
+*.jar
+*.war
+*.ear
+*.nar
+
+# Maven (if you add it later)
+.mvn/
+mvnw
+mvnw.cmd
+
+# Gradle (if you add it later)
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+
+# Documentation build (if you add it later)
+docs/_build/
+
