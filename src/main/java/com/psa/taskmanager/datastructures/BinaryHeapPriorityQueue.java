@@ -8,14 +8,14 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
- * Binary heap implementation of {@link PriorityQueue}.
+ * Binary heap implementation.
  *
  * @param <T> element type
  */
 public class BinaryHeapPriorityQueue<T> implements PriorityQueue<T> {
-
+	
+	//variables and array based store for implementing PQ
     private static final int DEFAULT_CAPACITY = 11;
-
     private final Comparator<T> comparator;
     private Object[] elements;
     private int size;
@@ -23,13 +23,18 @@ public class BinaryHeapPriorityQueue<T> implements PriorityQueue<T> {
      public BinaryHeapPriorityQueue() {
         this(null);
      }
-
+     
+     //constructor to initialize
     public BinaryHeapPriorityQueue(Comparator<T> comparator) {
         this.comparator = comparator;
         this.elements = new Object[DEFAULT_CAPACITY];
         this.size = 0;
     }
-
+    
+    /*
+     * insert element at the end of array
+     * call siftUp (Heapify) to arrange sorting
+     */
     @Override
     public void insert(T element) {
         Objects.requireNonNull(element, "element must not be null");
@@ -44,6 +49,11 @@ public class BinaryHeapPriorityQueue<T> implements PriorityQueue<T> {
         return size == 0 ? null : (T) elements[0];
     }
 
+    /*
+     * remove element at the start of array
+     * move tail element of array to start
+     * call siftDown (Heapify) to arrange sorting
+     */
     @SuppressWarnings("unchecked")
     @Override
     public T extract() {
@@ -61,11 +71,13 @@ public class BinaryHeapPriorityQueue<T> implements PriorityQueue<T> {
         return result;
     }
 
+    //return size
     @Override
     public int size() {
         return size;
     }
-
+    
+    //clear every elements.
     @Override
     public void clear() {
         Arrays.fill(elements, 0, size, null);
@@ -74,12 +86,14 @@ public class BinaryHeapPriorityQueue<T> implements PriorityQueue<T> {
             elements = new Object[DEFAULT_CAPACITY];
         }
     }
-
+    
+    //assign comparator to compare for sorting
     @Override
     public Comparator<T> comparator() {
         return comparator;
     }
-
+    
+    //create copy of heap & extract and return list
     @Override
     public List<T> toList() {
         BinaryHeapPriorityQueue<T> copy = new BinaryHeapPriorityQueue<>(comparator);
@@ -95,7 +109,8 @@ public class BinaryHeapPriorityQueue<T> implements PriorityQueue<T> {
         }
         return result;
     }
-
+    
+    // ensure capacity and increment 
     private void ensureCapacity(int minCapacity) {
         if (minCapacity > elements.length) {
             int newCapacity = elements.length + (elements.length >> 1);
@@ -105,7 +120,8 @@ public class BinaryHeapPriorityQueue<T> implements PriorityQueue<T> {
             elements = Arrays.copyOf(elements, newCapacity);
         }
     }
-
+    
+    //remove uecessary space from array.
     private void shrinkIfNecessary() {
         int currentCapacity = elements.length;
         if (size <= currentCapacity / 4 && currentCapacity > DEFAULT_CAPACITY) {
@@ -113,7 +129,13 @@ public class BinaryHeapPriorityQueue<T> implements PriorityQueue<T> {
             elements = Arrays.copyOf(elements, newCapacity);
         }
     }
-
+    
+    /*
+     * checks with parent from getting index i.e (index - 1)/2;  
+     * compare parent and current index 
+     * swap if current index element is smaller than parent
+     * do this until index > 0
+     */
     @SuppressWarnings("unchecked")
     private void siftUp(int index) {
         Object[] array = this.elements;
@@ -129,7 +151,12 @@ public class BinaryHeapPriorityQueue<T> implements PriorityQueue<T> {
         }
         array[index] = target;
     }
-
+    
+    /*
+     * retrieves left & right index & compares with current index
+     * swap if found current element has low proirity
+     * continue until index reaches half
+     */
     @SuppressWarnings("unchecked")
     private void siftDown(int index) {
         Object[] array = this.elements;
@@ -159,6 +186,10 @@ public class BinaryHeapPriorityQueue<T> implements PriorityQueue<T> {
         array[index] = target;
     }
 
+    /*
+     * compare method for comparing two task using given compare method or else use objects compareTo method
+     * 
+     */
     @SuppressWarnings("unchecked")
     private int compare(T first, T second) {
         if (comparator != null) {
