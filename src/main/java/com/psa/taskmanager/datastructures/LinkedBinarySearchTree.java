@@ -8,13 +8,11 @@ import java.util.function.Consumer;
 
 import com.psa.taskmanager.model.Task;
 
-/**
- * Linked node implementation of {@link BinarySearchTree}.
- *
- * @param <T> element type
- */
+// BST Implementation
+
 public class LinkedBinarySearchTree<T> implements BinarySearchTree<T> {
 
+    // Node strucutre
     private static final class Node<E> {
         E value;
         Node<E> left;
@@ -43,6 +41,7 @@ public class LinkedBinarySearchTree<T> implements BinarySearchTree<T> {
         root = insertRecursive(root, value);
     }
 
+    // insert into tree using BST properties 
     private Node<T> insertRecursive(Node<T> node, T value) {
         if (node == null) {
             size++;
@@ -93,6 +92,7 @@ public class LinkedBinarySearchTree<T> implements BinarySearchTree<T> {
         return size < initialSize;
     }
 
+    // remove node from BST, tree should be adjusted
     private Node<T> removeRecursive(Node<T> node, T value) {
         if (node == null) {
             return null;
@@ -167,18 +167,7 @@ public class LinkedBinarySearchTree<T> implements BinarySearchTree<T> {
     }
 
     private int compare(T first, T second) {
-    	
-    	
     	return ((Comparable<T>) first).compareTo(second);
-//        if (comparator != null) {
-//            return comparator.compare(first, second);
-//        }
-//        if (first instanceof Comparable<?> comparable) {
-//            @SuppressWarnings("unchecked")
-//            Comparable<Object> castComparable = (Comparable<Object>) comparable;
-//            return castComparable.compareTo(second);
-//        }
-//        throw new IllegalStateException("Elements are not comparable and no comparator provided");
     }
 }
 
