@@ -6,21 +6,22 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
- * Array-backed implementation of {@link Bag}.
+ * Array-backed implementation.
  *
  * @param <T> element type
  */
 public class ArrayBag<T> implements Bag<T> {
-
+	
+	//ADT implementation of Bag
     private static final int DEFAULT_CAPACITY = 10;
-
     private Object[] elements;
     private int size;
 
     public ArrayBag() {
         this(DEFAULT_CAPACITY);
     }
-
+    
+    //constructor to initialize 
     public ArrayBag(int initialCapacity) {
         if (initialCapacity <= 0) {
             throw new IllegalArgumentException("Capacity must be positive");
@@ -28,14 +29,16 @@ public class ArrayBag<T> implements Bag<T> {
         this.elements = new Object[initialCapacity];
         this.size = 0;
     }
-
+    
+    //add element to bag
     @Override
     public boolean add(T element) {
         ensureCapacity(size + 1);
         elements[size++] = element;
         return true;
     }
-
+    
+    //remove element from a bag
     @Override
     public boolean remove(T element) {
         for (int i = 0; i < size; i++) {
@@ -51,7 +54,8 @@ public class ArrayBag<T> implements Bag<T> {
         }
         return false;
     }
-
+    
+    //check if elements exists 
     @Override
     public boolean contains(T element) {
         for (int i = 0; i < size; i++) {
@@ -67,6 +71,7 @@ public class ArrayBag<T> implements Bag<T> {
         return size;
     }
 
+    //clear existing bag
     @Override
     public void clear() {
         Arrays.fill(elements, 0, size, null);
@@ -76,6 +81,7 @@ public class ArrayBag<T> implements Bag<T> {
         }
     }
 
+    //iterator 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
@@ -97,6 +103,7 @@ public class ArrayBag<T> implements Bag<T> {
         };
     }
 
+    //ensure capacity
     private void ensureCapacity(int minCapacity) {
         if (minCapacity > elements.length) {
             int newCapacity = elements.length + (elements.length >> 1);
@@ -106,7 +113,8 @@ public class ArrayBag<T> implements Bag<T> {
             elements = Arrays.copyOf(elements, newCapacity);
         }
     }
-
+    
+    // remove unwanted
     private void shrinkIfNecessary() {
         int currentCapacity = elements.length;
         if (size <= currentCapacity / 4 && currentCapacity > DEFAULT_CAPACITY) {
